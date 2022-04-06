@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+
+  mysql8:
+    image: mysql/mysql-server:8.0.23
+    container_name: mysql8
+#    networks:
+#      - 'backend'
+    ports:
+      - '33061:3306'
+    volumes:
+      - 'srv_mysql8:/var/lib/mysql'
+      - '/Users/cookedapple/data/mysql8-files:/var/lib/mysql-files'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOTV8_PASS}
+      MYSQL_ROOT_HOST: "%"
+
+volumes:
+  srv_mysql8: {}
