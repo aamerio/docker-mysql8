@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   mysql8:
-    image: mysql/mysql-server:8.0.23
+    image: mysql
     container_name: mysql8
 #    networks:
 #      - 'backend'
