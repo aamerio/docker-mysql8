@@ -12,6 +12,7 @@ services:
     volumes:
       - 'srv_mysql8:/var/lib/mysql'
       - '/Users/cookedapple/data/mysql8-files:/var/lib/mysql-files'
+      - '/Users/cookedapple/Devel/github/docker-mysql8:/opt'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOTV8_PASS}
