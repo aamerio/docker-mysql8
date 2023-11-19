@@ -1,0 +1,15 @@
+#!/bin/bash
+USER=
+PASSWORD=
+HOST=127.0.0.1
+PORT=
+
+# get a list of databases
+databases="LIST"
+
+for db in $databases; do
+  echo $db
+
+  DAY=`date "+%F"`
+  mysqldump --host=${HOST} --port=${PORT} --user=${USER} --password=${PASSWORD} --single-transaction --routines ${db} ${IGNORED_TABLES_STRING} -r $TMP2
+done
