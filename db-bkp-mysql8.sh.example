@@ -2,14 +2,20 @@
 USER=
 PASSWORD=
 HOST=127.0.0.1
-PORT=
+PORT=3306
+DAY=`date "+%F"`
 
 # get a list of databases
-databases="LIST"
+databases=`mysql -uroot --password=${PASSWORD} -e "SHOW DATABASES;" | tr -s "| " | grep -v Database`
+excluded_db= "information_schema performance_schema mysql sys"
 
 for db in $databases; do
   echo $db
-
-  DAY=`date "+%F"`
-  mysqldump --host=${HOST} --port=${PORT} --user=${USER} --password=${PASSWORD} --single-transaction --routines ${db} ${IGNORED_TABLES_STRING} -r $TMP2
+  if echo $excluded_db | tr " " '\n' | grep -F -q -x "$db"; then
+    echo "$db excluded" 
+  else
+    DB_FILE="dump_${db}_$DAY.sql"
+    echo $DB_FILE
+    mysqldump --host=${HOST} --port=${PORT} --user=${USER} --password=${PASSWORD} --single-transaction --routines ${db} -r ${DB_FILE}
+  fi
 done
